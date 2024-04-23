@@ -18,7 +18,6 @@ import {
 
 import logo from '../assets/logo.png'
 import  { HamburgerIcon, ChevronDownIcon } from '@chakra-ui/icons'
-import { useRef, useState } from 'react';
 
 const items = [
     {label: 'Home', link: '/home'},
