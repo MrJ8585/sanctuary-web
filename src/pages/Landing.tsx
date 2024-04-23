@@ -5,11 +5,11 @@ import Navbar from '../components/Navbar';
 export default function Landing() {
     
     return(
-        <div>
-            <Navbar />
-            <div className='text-white bg-black'>
-             Landing Page
+        <div className='w-[100%] h-[100%] bg-[#FFF7FC]'>
+            <div className='w-[100%] h-[10%]'>
+                <Navbar />
             </div>
+            
         </div>
     )
 };
