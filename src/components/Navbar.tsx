@@ -29,6 +29,16 @@ const items = [
     {label: 'Contacto', link: '/contacto'},
 ];
 
+const itemsDrawer = [
+    {label: 'Home', link: '/'},
+    {label: 'Esports', link: '/esports'},
+    {label: 'Proyectos', link: '/proyectos'},
+    {label: 'Novelas', link: '/novelas'},
+    {label: 'Blog', link: '/blog'},
+    {label: 'About', link: '/about'},
+    {label: 'Contacto', link: '/contacto'},
+];
+
 const esports = [
     {label: 'LoL', link: '/esports/lol'},
     {label: 'Valorant', link: '/esports/valorant'},
@@ -86,7 +96,7 @@ export default function Navbar() {
                                         {esports.map((item, index) => (
                                             <MenuItem 
                                                 backgroundColor='#8B73B1' 
-                                                _hover={{bg:'#FFCB85'}} 
+                                                _hover={{bg:'#5C3C7F'}} 
                                                 key={index} 
                                                 textColor={'white'}
                                                 borderRadius={7}
@@ -123,19 +133,19 @@ export default function Navbar() {
                     
                 >
                     <DrawerOverlay />
-                    <DrawerContent backgroundColor='#FFF7FC'>
+                    <DrawerContent backgroundColor='#2B1A46'>
                         <DrawerHeader />
-                        <DrawerCloseButton />
+                        <DrawerCloseButton color={'white'} />
                         <DrawerBody>
                             <Stack direction='column' spacing={2} className='flex w-[100%] items-center justify-center'>
-                                {items.map((item, index) => (
+                                {itemsDrawer.map((item, index) => (
                                     item.label === 'Esports' ? (
                                         <Menu key={index} isOpen={isOpenMenu} onClose={onCloseMenu}>
                                             <MenuButton 
                                                 variant='outline' 
                                                 as={Button} 
                                                 onClick={onToggleEsports} 
-                                                _focus={{bg:'#FFC04D'}}
+                                                _focus={{bg:'#FFA500'}}
                                                 className='bg-[#FFA500] w-[100%]'
                                             >
                                                 {item.label}
@@ -148,7 +158,7 @@ export default function Navbar() {
                                                             size={'lg'}
                                                             key={index} 
                                                             className='bg-[#FFD27F] w-[100%]'
-                                                            onClick={() => {nav(item.link)}}
+                                                            onClick={() => {nav(item.link); onCloseDrawer();}}
                                                         >{item.label}</Button>
                                                     ))}
                                                 </Stack>
@@ -160,7 +170,7 @@ export default function Navbar() {
                                             key={index} 
                                             variant='outline' 
                                             className='bg-[#FFA500] w-[100%]'
-                                            onClick={() => {nav(item.link)}}
+                                            onClick={() => {nav(item.link); onCloseDrawer();}}
                                         >{item.label}</Button>
                                     )
                                 ))}
