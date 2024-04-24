@@ -18,15 +18,15 @@ import {
 
 import logo from '../assets/logo.png'
 import  { HamburgerIcon, ChevronDownIcon } from '@chakra-ui/icons'
+import { useNavigate } from 'react-router-dom';
 
 const items = [
-    {label: 'Home', link: '/home'},
-    {label: 'Esports', link: '/services'},
+    {label: 'Esports', link: '/esports'},
     {label: 'Proyectos', link: '/proyectos'},
     {label: 'Novelas', link: '/novelas'},
     {label: 'Blog', link: '/blog'},
     {label: 'About', link: '/about'},
-    {label: 'Contact', link: '/contact'},
+    {label: 'Contacto', link: '/contacto'},
 ];
 
 const esports = [
@@ -40,6 +40,8 @@ const esports = [
 
 export default function Navbar() {
 
+    const nav = useNavigate();
+
     const { isOpen : isOpenDrawer, onOpen : onOpenDrawer, onClose : onCloseDrawer } = useDisclosure();
     const { isOpen : isOpenMenu, onOpen : onOpenMenu, onClose : onCloseMenu } = useDisclosure();
     const { isOpen : isOpenEsports, onToggle : onToggleEsports } = useDisclosure();
@@ -48,12 +50,17 @@ export default function Navbar() {
     return(
         <div className='w-[100%] h-[100%] bg-[#2B1A46] '>
             <Box className='flex flex-row justify-between items-center h-[100%] lg:mx-32 p-4'>
-                <img src={logo} alt='logo' className='h-[7%] w-[7%]'/>
+                <img onClick={() => {nav('/')}} src={logo} alt='logo' className='h-[7%] w-[7%] cursor-pointer'/>
                 <div className='hidden lg:block'>
                     <Stack direction='row' spacing={2}>
                         {items.map((item, index) => (
                             item.label === 'Esports' ? (
-                                <Menu key={index} isOpen={isOpenMenu} onClose={onCloseMenu}>
+                                <Menu 
+                                    key={index} 
+                                    isOpen={isOpenMenu} 
+                                    onClose={onCloseMenu}
+                                    isLazy
+                                >
                                     <MenuButton 
                                         variant='outline' 
                                         as={Button} 
@@ -62,12 +69,33 @@ export default function Navbar() {
                                         textColor='white'
                                         _active={{bg:'#FFC04D'}}
                                         className='bg-[#724999]'
+                                        onClick={() => {nav(item.link)}}
                                     >
                                         {item.label}
                                     </MenuButton>
-                                    <MenuList onMouseEnter={onOpenMenu} onMouseLeave={onCloseMenu}>
+                                    <MenuList 
+                                        onMouseEnter={onOpenMenu} 
+                                        onMouseLeave={onCloseMenu}
+                                        backgroundColor={'#8B73B1'}
+                                        justifyContent={'center'}
+                                        alignItems={'center'}
+                                        width={'100%'}
+                                        display={'flex'}
+                                        flexDirection={'column'}
+                                    >
                                         {esports.map((item, index) => (
-                                            <MenuItem key={index}>{item.label}</MenuItem>
+                                            <MenuItem 
+                                                backgroundColor='#8B73B1' 
+                                                _hover={{bg:'#FFCB85'}} 
+                                                key={index} 
+                                                textColor={'white'}
+                                                borderRadius={7}
+                                                width={'90%'}
+                                                justifyContent={'center'}
+                                                alignItems={'center'}
+                                            >
+                                                {item.label}
+                                            </MenuItem>
                                         ))}
                                     </MenuList>
                                 </Menu>
@@ -78,6 +106,7 @@ export default function Navbar() {
                                     variant='outline' 
                                     className='bg-[#724999]'
                                     _hover={{bg:'#FFC04D'}}
+                                    onClick={() => {nav(item.link)}}
                                 >{item.label}</Button>
                             )
                         ))}
@@ -98,7 +127,7 @@ export default function Navbar() {
                         <DrawerHeader />
                         <DrawerCloseButton />
                         <DrawerBody>
-                            <Stack direction='column' spacing={4} className='flex w-[100%] items-center justify-center'>
+                            <Stack direction='column' spacing={2} className='flex w-[100%] items-center justify-center'>
                                 {items.map((item, index) => (
                                     item.label === 'Esports' ? (
                                         <Menu key={index} isOpen={isOpenMenu} onClose={onCloseMenu}>
@@ -112,20 +141,27 @@ export default function Navbar() {
                                                 {item.label}
                                             </MenuButton>
                                             <Collapse in={isOpenEsports} className=''>
-                                                <Stack direction='column' spacing={2} className=''>
+                                                <Stack display={'flex'} direction='column' spacing={2}>
                                                     {esports.map((item, index) => (
                                                         <Button 
                                                             variant='ghost' 
                                                             size={'lg'}
                                                             key={index} 
                                                             className='bg-[#FFD27F] w-[100%]'
+                                                            onClick={() => {nav(item.link)}}
                                                         >{item.label}</Button>
                                                     ))}
                                                 </Stack>
                                             </Collapse>
                                         </Menu>
                                     ) : (
-                                        <Button _focus={{bg:'#FFC04D'}} key={index} variant='outline' className='bg-[#FFA500] w-[100%]'>{item.label}</Button>
+                                        <Button 
+                                            _focus={{bg:'#FFC04D'}} 
+                                            key={index} 
+                                            variant='outline' 
+                                            className='bg-[#FFA500] w-[100%]'
+                                            onClick={() => {nav(item.link)}}
+                                        >{item.label}</Button>
                                     )
                                 ))}
                             </Stack>
